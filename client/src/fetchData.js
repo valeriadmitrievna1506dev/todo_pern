@@ -70,16 +70,27 @@ export const DeleteTask = async (taskId, userId) => {
 
 export const Authorization = async (user) => {
   if (user.type === 'signUp') {
-    return await RegisterUser(user)
+    return await RegisterUser(user);
   }
   if (user.type === 'signIn') {
-    return await RegisterUser(user)
+    return await LoginUser(user);
   }
 };
 
 export const RegisterUser = async (user) => {
   try {
     const result = await axios.post(`${baseUrl}/users/register`, {
+      user,
+    });
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const LoginUser = async (user) => {
+  try {
+    const result = await axios.post(`${baseUrl}/users/login`, {
       user,
     });
     return result.data;
