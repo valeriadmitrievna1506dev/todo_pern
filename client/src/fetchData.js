@@ -69,32 +69,38 @@ export const DeleteTask = async (taskId, userId) => {
 };
 
 export const Authorization = async (user) => {
+  if (user.type === 'signUp') {
+    return await RegisterUser(user)
+  }
+  if (user.type === 'signIn') {
+    return await RegisterUser(user)
+  }
+};
+
+export const RegisterUser = async (user) => {
   try {
-    const result = await axios.post(`${baseUrl}/users/auth`, {
+    const result = await axios.post(`${baseUrl}/users/register`, {
       user,
     });
     return result.data;
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
   }
 };
 
 export const DeleteUser = async (userId) => {
   try {
-    const result = await axios.delete(`${baseUrl}/users/${userId}`)
+    const result = await axios.delete(`${baseUrl}/users/${userId}`);
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 
 export const editUsername = async (newUsername, userId) => {
   try {
-    const result = await axios.put(
-      `${baseUrl}/users/${userId}`,
-      {
-        username: newUsername,
-      }
-    );
+    const result = await axios.put(`${baseUrl}/users/${userId}`, {
+      username: newUsername,
+    });
   } catch (err) {
     console.log(err.message);
   }
