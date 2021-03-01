@@ -11,10 +11,10 @@ export default function Task(props) {
   const activateEditMode = () => {
     setEditMode(true);
   };
-  const deactivateEditMode = (e) => {
+  const deactivateEditMode = async (e) => {
     setEditMode(false);
-    setTaskText(e.target.value);
-    props.editText(e, tasktext);
+    setTaskText(await e.target.value);
+    props.editText(props.id, tasktext);
   };
 
   return (
@@ -27,13 +27,13 @@ export default function Task(props) {
           autoFocus={true}
           onBlur={(event) => deactivateEditMode(event)}
           type='text'
-          defaultValue={props.text}
+          defaultValue={tasktext}
           onChange={(e) => setTaskText(e.target.value)}
         />
       )}
       {!editMode && (
         <span onDoubleClick={activateEditMode} className='taskText'>
-          {props.text}
+          {tasktext}
         </span>
       )}
       <button onClick={(event) => props.doneTask(event)} className='doneTask'>
@@ -79,7 +79,10 @@ export default function Task(props) {
           <g> </g>{' '}
         </svg>{' '}
       </button>
-      <button onClick={(event) => props.deleteTask(event)} className='deleteTask'>
+      <button
+        onClick={(event) => props.deleteTask(event)}
+        className='deleteTask'
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           version='1.1'

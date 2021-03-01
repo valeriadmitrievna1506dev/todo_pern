@@ -33,8 +33,7 @@ export default function TasksPage(props) {
     setData(await fetchData(filters.order, filters.done, props.user.id));
   };
 
-  const callEditTask = async (e, text) => {
-    const id = await e.currentTarget.parentElement.getAttribute('data-id');
+  const callEditTask = async (id, text) => {
     await editTaskText(id, text, props.user.id);
     setData(await fetchData(filters.order, filters.done, props.user.id));
   };
