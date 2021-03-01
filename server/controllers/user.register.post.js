@@ -12,16 +12,21 @@ router.post('/users/register', async (req, res, next) => {
   if (reqUserData.password.length < 4)
     return next(ApiError.BadRequest('Password length must be greater than 4'));
 
-  try {
-    const newUser = await User.create({
+  const candidate = User.findOne({
+    where: {
       username: reqUserData.username,
-      password: reqUserData.password,
-    });
-
-    return res.status(201).send(newUser);
-  } catch (err) {
-    return next(ApiError.UniqueConstraintError('Username is Taken'))
+    },
+  });
+  if (candidate) {
+    return next(ApiError.UniqueConstraintError('Username is Taken'));
   }
+
+  const newUser = await User.create({
+    username: reqUserData.username,
+    password: reqUserData.password,
+  });
+
+  return res.status(201).send(newUser);
 });
 
 module.exports = router;
