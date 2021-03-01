@@ -1,0 +1,68 @@
+form#authForm {
+  background-color: #fff;
+  min-width: 310px;
+  max-width: 60%;
+  margin: 0 auto;
+  color: black;
+  font-size: 22px;
+  border-radius: 16px;
+  padding: 26px;
+  -webkit-box-shadow: 0px 10px 0px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 10px 0px 0px rgba(0, 0, 0, 0.2);
+}
+
+form#authForm h2 {
+  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+form#authForm input {
+  margin-bottom: 16px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+form#authForm input:last-of-type {
+  margin-bottom: 26px;
+}
+
+form#authForm > div {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+form#authForm > div button {
+  border-radius: 4px;
+  border: none;
+  padding: 8px 26px;
+  text-transform: capitalize;
+  font-weight: bold;
+  margin: 0 8px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+form#authForm > div button:first-of-type {
+  background-color: rgba(228, 129, 215, 0.3);
+}
+
+form#authForm > div button:first-of-type:hover {
+  background-color: #e481d7;
+}
+
+form#authForm > div button:last-of-type {
+  background-color: rgba(36, 145, 145, 0.3);
+}
+
+form#authForm > div button:last-of-type:hover {
+  background-color: #249191;
+}
+/*# sourceMappingURL=AuthPage.css.map */
