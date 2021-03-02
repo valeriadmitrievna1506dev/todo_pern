@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { PutDoneTask } from '../fetchData';
 
 export default function Task(props) {
-  const [tasktext, setTaskText] = useState(props.text);
   const [editMode, setEditMode] = useState(false);
 
   const toggleEditMode = () => {
@@ -13,8 +11,7 @@ export default function Task(props) {
   };
   const deactivateEditMode = async (e) => {
     setEditMode(false);
-    setTaskText(await e.target.value);
-    props.editText(props.id, tasktext);
+    await props.editText(props.id, e.target.value);
   };
 
   return (
@@ -27,13 +24,12 @@ export default function Task(props) {
           autoFocus={true}
           onBlur={(event) => deactivateEditMode(event)}
           type='text'
-          defaultValue={tasktext}
-          onChange={(e) => setTaskText(e.target.value)}
+          defaultValue={props.text}
         />
       )}
       {!editMode && (
         <span onDoubleClick={activateEditMode} className='taskText'>
-          {tasktext}
+          {props.text}
         </span>
       )}
       <button onClick={(event) => props.doneTask(event)} className='doneTask'>
