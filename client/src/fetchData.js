@@ -7,7 +7,6 @@ export const fetchData = async (order = 'normal', done = 'all', userId) => {
       order: order,
     };
     if (done != 'all') queryString.done = done;
-
     const url =
       `${baseUrl}/users/${userId}/tasks?` + new URLSearchParams(queryString);
     const result = await axios.get(url, {
@@ -65,37 +64,6 @@ export const DeleteTask = async (taskId, userId) => {
     );
   } catch (error) {
     console.log(error.message);
-  }
-};
-
-export const Authorization = async (user) => {
-  if (user.type === 'signUp') {
-    return await RegisterUser(user);
-  }
-  if (user.type === 'signIn') {
-    return await LoginUser(user);
-  }
-};
-
-export const RegisterUser = async (user) => {
-  try {
-    const result = await axios.post(`${baseUrl}/users/register`, {
-      user,
-    });
-    return result.data;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const LoginUser = async (user) => {
-  try {
-    const result = await axios.post(`${baseUrl}/users/login`, {
-      user,
-    });
-    return result.data;
-  } catch (err) {
-    console.log(err);
   }
 };
 

@@ -4,26 +4,19 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import AuthPage from './components/AuthPage';
 import TasksPage from './components/TasksPage';
 import { Authorization } from './fetchData';
+import { Context } from './index';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState({
-    id: 0,
-    username: '',
-    password: '',
-    type: '',
-  });
+  const [user, setUser] = useState();
 
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(async () => {
-    if (user.username != '' && user.password != '') {
-      let remoteUser = await Authorization(user);
-      if (remoteUser) {
-        if (remoteUser.id != 0 && remoteUser) {
-          setCurrentUser(await remoteUser)
-          setIsAuth(true);
-        }
+    if (user) {
+      if (user.id != 0 && user) {
+        setCurrentUser(await user);
+        setIsAuth(true);
       }
     }
   }, [user]);

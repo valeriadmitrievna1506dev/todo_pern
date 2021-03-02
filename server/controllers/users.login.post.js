@@ -3,9 +3,11 @@ const express = require('express');
 const router = express.Router();
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt-nodejs');
+const jwt = require('jsonwebtoken');
+
 
 router.post('/users/login', async (req, res, next) => {
-  let reqUserData = req.body.user;
+  let reqUserData = req.body;
   if (!reqUserData || reqUserData === {}) {
     return next(ApiError.BadRequest('Empty Request'));
   }
@@ -21,7 +23,16 @@ router.post('/users/login', async (req, res, next) => {
 
   if (!bcrypt.compareSync(reqUserData.password, password))
     return next(ApiError.BadRequest('Invalid password'));
-  return res.status(200).send(user);
+
+  const token = jwt.sign(
+    { id: user.id, username: user.username },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: '24h',
+    }
+  );
+
+  return res.status(201).send(token);
 });
 
 module.exports = router;

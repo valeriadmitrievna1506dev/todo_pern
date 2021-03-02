@@ -1,22 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { login, registrantion } from '../http/userApi';
 import './AuthPage.css';
 
 export default function AuthPage(props) {
-  const [username, setUsername] = useState(props.user.username);
-  const [password, setPassword] = useState(props.user.password);
+  const [showError, setShowError] = useState(false);
+  const [showOkay, setShowOkay] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('error');
+  const closeModal = (e) => {
+    setShowError(false);
+  };
 
-  const authorization = (e) => {
-    e.preventDefault();
-    props.updateUser({
-      id: props.user.id, 
-      username: username,
-      password: password,
-      type: e.nativeEvent.submitter.id
-    })
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+
+  const signUp = async () => {
+    const response = await registrantion(username, password);
+    if (response.message) {
+      setErrorMessage(response.message);
+      setShowError(true);
+    } else props.updateUser(response);
+  };
+
+  const signIn = async () => {
+    const response = await login(username, password);
+    if (response.message) {
+      setErrorMessage(response.message);
+      setShowError(true);
+    } else props.updateUser(response);
   };
 
   return (
-    <form id='authForm' onSubmit={(event) => authorization(event)}>
+    <form id='authForm' onSubmit={(e) => e.preventDefault()}>
+      {showError && (
+        <div className='ErrorModal'>
+          <div className='errorBody'>
+            <h1>Error</h1>
+            <p>{errorMessage}</p>
+            <button onClick={(e) => closeModal(e)}>Close</button>
+          </div>
+        </div>
+      )}
+
       <h2>authorization</h2>
       <input
         autoComplete='off'
@@ -33,8 +57,12 @@ export default function AuthPage(props) {
         id='password'
       />
       <div>
-        <button type='submit' id="signIn">Sign In</button>
-        <button type='submit' id="signUp">Sign up</button>
+        <button id='signIn' onClick={signIn}>
+          Sign In
+        </button>
+        <button id='signUp' onClick={signUp}>
+          Sign up
+        </button>
       </div>
     </form>
   );
