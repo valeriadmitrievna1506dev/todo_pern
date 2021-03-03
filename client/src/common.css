@@ -5,6 +5,10 @@ body {
   color: aliceblue;
 }
 
+body::-webkit-scrollbar {
+  width: 0;
+}
+
 * {
   user-select: none;
 }

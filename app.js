@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./database');
 const models = require('./server/models/index')
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 const errorHandler = require('./server/middleware/ErrorHandler')
 
 const app = express();
