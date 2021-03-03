@@ -9,30 +9,29 @@ export default function UserPanel(props) {
   const [username, setUsername] = useState(props.username);
 
   const toggleEditMode = () => {
-    setEditMode(!editMode);
-  };
-  const deactivateEditMode = (e) => {
-    props.editUser(username)
-    setEditMode(false)
+    if (!editMode) {
+      setEditMode(true);
+    }
+    if (editMode) {
+      if (document.querySelector('input').value !== username) {
+        setUsername(document.querySelector('input').value);
+        props.editUser(document.querySelector('input').value);
+      }
+      setEditMode(false);
+    }
   };
 
   return (
     <div id='userPanel'>
-      {!editMode && (
-        <span onDoubleClick={toggleEditMode}>
-          {username}
-        </span>
-      )}
+      {!editMode && <span onDoubleClick={toggleEditMode}>{username}</span>}
       {editMode && (
         <input
           onKeyDown={(event) => {
-            if (event.code === 'Enter') deactivateEditMode(event);
+            if (event.code === 'Enter') toggleEditMode();
           }}
           autoFocus={true}
-          onBlur={(event) => deactivateEditMode(event)}
           type='text'
           defaultValue={username}
-          onChange={(e) => setUsername(e.target.value)}
         />
       )}
       <div className='buttons'>

@@ -59,7 +59,6 @@ export default function TasksPage(props) {
 
   const callEditUsername = async (newUsername) => {
     await editUsername(newUsername, props.user.id);
-    setData(await fetchData(filters.order, filters.done, props.user.id));
   };
 
   useEffect(async () => {

@@ -77,7 +77,7 @@ export const DeleteUser = async (userId) => {
 
 export const editUsername = async (newUsername, userId) => {
   try {
-    const result = await axios.put(`${baseUrl}/users/${userId}`, {
+    return await axios.put(`${baseUrl}/users/${userId}`, {
       username: newUsername,
     });
   } catch (err) {
