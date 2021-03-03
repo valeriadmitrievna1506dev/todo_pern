@@ -28,7 +28,8 @@ export default function AuthPage(props) {
           setShowOkay(true);
         }
       } catch (e) {
-        console.log(e.message);
+        setErrorMessage(e.message);
+        setShowError(true);
       }
     }
   };
@@ -44,7 +45,8 @@ export default function AuthPage(props) {
           props.updateUser(response);
         }
       } catch (e) {
-        console.log(e.message);
+        setErrorMessage(e.message);
+        setShowError(true);
       }
     }
   };

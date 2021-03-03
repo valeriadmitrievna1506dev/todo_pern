@@ -20,7 +20,6 @@ router.get('/users/:userId/tasks', async (req, res) => {
           ? { done: true, UserId: parseInt(req.params.userId) }
           : { done: false, UserId: parseInt(req.params.userId) };
 
-    console.log(filter);
     const result = await TodoItem.findAll(filter);
     res.status(200).send(result);
   } catch (error) {
