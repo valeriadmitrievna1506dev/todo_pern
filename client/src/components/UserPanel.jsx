@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 export default function UserPanel(props) {
   const signout = () => {
-    props.signOut(false);
-    props.clearUser({ id: 0, username: '', password: '', type: '' });
+    props.logout();
   };
 
   const [editMode, setEditMode] = useState(false);

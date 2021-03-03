@@ -8,6 +8,7 @@ export default function TasksPlace(props) {
       if (taskObject.done) {
         return (
           <Task
+            key={taskObject.id}
             deleteTask={props.deleteTask}
             editText={props.editText}
             doneTask={props.doneTask}
@@ -19,6 +20,7 @@ export default function TasksPlace(props) {
       } else {
         return (
           <Task
+            key={taskObject.id}
             deleteTask={props.deleteTask}
             editText={props.editText}
             doneTask={props.doneTask}

@@ -3,29 +3,31 @@ import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import AuthPage from './components/AuthPage';
 import TasksPage from './components/TasksPage';
-import { Authorization } from './fetchData';
-import { Context } from './index';
+import { getCurrentUser, logoutUser } from './http/auth.service';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState();
+  const [currentUser, setCurrentUser] = useState();
+  const [update, setUpdate] = useState();
 
-  const [currentUser, setCurrentUser] = useState({});
+  const logout = () => {
+    logoutUser();
+    window.location.reload();
+  };
 
-  useEffect(async () => {
+  useEffect(() => {
+    const user = getCurrentUser();
     if (user) {
-      if (user.id != 0 && user) {
-        setCurrentUser(await user);
-        setIsAuth(true);
-      }
+      setCurrentUser(user);
+      setIsAuth(true);
     }
-  }, [user]);
+  }, [update]);
 
   if (isAuth) {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path='/items'>
+          <Route path={`/tasks`}>
             <h1>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -126,13 +128,9 @@ function App() {
               </svg>
               ToDo List
             </h1>
-            <TasksPage
-              clearUser={setUser}
-              signOut={setIsAuth}
-              user={currentUser}
-            />
+            <TasksPage logout={logout} user={currentUser} />
           </Route>
-          <Redirect to='/items' />
+          <Redirect to={`/tasks`} />
         </Switch>
       </BrowserRouter>
     );
@@ -242,7 +240,7 @@ function App() {
             </svg>
             ToDo List
           </h1>
-          <AuthPage user={user} updateUser={setUser} />
+          <AuthPage updateUser={setUpdate} />
         </Route>
         <Redirect to='/' />
       </Switch>

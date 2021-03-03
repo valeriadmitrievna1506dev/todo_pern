@@ -7,9 +7,11 @@ export const registrantion = async (username, password) => {
       username,
       password,
     });
-    return jwt_decode(data);
+    console.log('registration axios data',data);
+    localStorage.setItem('token', data.token);
+    // return jwt_decode(data);
   } catch (err) {
-    return err.response.data
+    return err.response.data;
   }
 };
 
@@ -19,14 +21,22 @@ export const login = async (username, password) => {
       username,
       password,
     });
-    return jwt_decode(data);
+    console.log('login axios data',data);
+    localStorage.setItem('token', data);
+    // return jwt_decode(data);
   } catch (err) {
-    return err.response.data
+    return err.response.data;
   }
 };
 
 export const checkAuth = async () => {
-  const response = await $host.get('users/auth');
-  console.log('check ', response);
-  return response;
+  try {
+    const { data } = await $authHost.get('users/auth');
+    console.log('check data ',data);
+    console.log('check ', jwt_decode(data));
+    localStorage.setItem('token', data);
+    // return await jwt_decode(data);
+  } catch (err) {
+    return err.response.data;
+  }
 };

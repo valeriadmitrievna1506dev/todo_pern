@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { loginUSer, registerUser } from '../http/auth.service';
 import { login, registrantion } from '../http/userApi';
 import './AuthPage.css';
 
 export default function AuthPage(props) {
-  const [showError, setShowError] = useState(false);
   const [showOkay, setShowOkay] = useState(false);
+  const [succesMessage, setSuccessMessage] = useState('success');
+  const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('error');
-  const closeModal = (e) => {
+  const closeModal = () => {
+    setShowOkay(false);
     setShowError(false);
   };
 
@@ -14,19 +17,37 @@ export default function AuthPage(props) {
   const [password, setPassword] = useState();
 
   const signUp = async () => {
-    const response = await registrantion(username, password);
-    if (response.message) {
-      setErrorMessage(response.message);
-      setShowError(true);
-    } else props.updateUser(response);
+    if (username && password) {
+      try {
+        const response = await registerUser(username, password);
+        if (!response.token && response.message) {
+          setErrorMessage(response.message);
+          setShowError(true);
+        }
+        if (response.token) {
+          setSuccessMessage(response.message);
+          setShowOkay(true);
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
   };
 
   const signIn = async () => {
-    const response = await login(username, password);
-    if (response.message) {
-      setErrorMessage(response.message);
-      setShowError(true);
-    } else props.updateUser(response);
+    if (username && password) {
+      try {
+        const response = await loginUSer(username, password);
+        if (response.message) {
+          setErrorMessage(response.message);
+          setShowError(true);
+        } else {
+          props.updateUser(response);
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
   };
 
   return (
@@ -36,7 +57,17 @@ export default function AuthPage(props) {
           <div className='errorBody'>
             <h1>Error</h1>
             <p>{errorMessage}</p>
-            <button onClick={(e) => closeModal(e)}>Close</button>
+            <button onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {showOkay && (
+        <div className='SuccesModal'>
+          <div className='successBody'>
+            <h1>Succes</h1>
+            <p>{succesMessage}</p>
+            <button onClick={closeModal}>Close</button>
           </div>
         </div>
       )}
@@ -48,6 +79,7 @@ export default function AuthPage(props) {
         placeholder='Username'
         type='text'
         id='username'
+        required={true}
       />
       <input
         autoComplete='off'
@@ -55,6 +87,7 @@ export default function AuthPage(props) {
         placeholder='Password'
         type='password'
         id='password'
+        required={true}
       />
       <div>
         <button id='signIn' onClick={signIn}>

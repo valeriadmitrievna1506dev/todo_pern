@@ -9,8 +9,8 @@ import {
   editTaskText,
   fetchData,
   PutDoneTask,
-  editUsername
-} from './../fetchData';
+  editUsername,
+} from '../http/fetchData';
 import React from 'react';
 import UserPanel from './UserPanel';
 
@@ -52,13 +52,13 @@ export default function TasksPage(props) {
   };
 
   const callDeleteUser = async () => {
-    await props.signOut(false);
+    props.logout()
     await DeleteUser(props.user.id);
     setData(await fetchData(filters.order, filters.done, props.user.id));
   };
 
   const callEditUsername = async (newUsername) => {
-    await editUsername(newUsername, props.user.id)
+    await editUsername(newUsername, props.user.id);
     setData(await fetchData(filters.order, filters.done, props.user.id));
   };
 
@@ -73,7 +73,7 @@ export default function TasksPage(props) {
         deleteUser={callDeleteUser}
         username={props.user.username}
         clearUser={props.clearUser}
-        signOut={props.signOut}
+        logout={props.logout}
       />
       <AddTaskForm addTask={callAddTask} />
       <TasksPlace

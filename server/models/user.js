@@ -25,9 +25,9 @@ const User = sequelize.define('User', {
       );
     },
   },
-})
+});
 
-User.hasMany(TodoItem);
+User.hasMany(TodoItem, { onDelete: 'CASCADE' });
 TodoItem.belongsTo(User);
 
 module.exports = User;
