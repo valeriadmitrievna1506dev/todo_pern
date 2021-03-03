@@ -27,7 +27,7 @@ function App() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path={`/tasks`}>
+          <Route path={`/users/${currentUser.id}/tasks`}>
             <h1>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -130,7 +130,7 @@ function App() {
             </h1>
             <TasksPage logout={logout} user={currentUser} />
           </Route>
-          <Redirect to={`/tasks`} />
+          <Redirect to={`/users/${currentUser.id}/tasks`} />
         </Switch>
       </BrowserRouter>
     );
