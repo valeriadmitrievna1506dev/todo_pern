@@ -4,16 +4,14 @@ const express = require('express');
 const router = express.Router();
 const ApiError = require('./../error/ApiError');
 
-router.get('/users/:userId', async (req, res, next) => {
+router.get(/\/users\/\d{1,}/, async (req, res, next) => {
   try {
-
-    const userId = req.params.userId;
+    const userId = req.path.replace('/users/', '');
     if (typeof parseInt(userId) !== 'number') {
-      return next(ApiError.BadRequest('User Id is not a number'))
+      return next(ApiError.BadRequest('User Id is not a number'));
     }
-    if (!userId) return next(ApiError.BadRequest('user id is not defined'));
+    if (!userId) return next(ApiError.BadRequest('User Id is not defined'));
 
-  
     const user = await User.findOne({
       where: { id: userId },
       include: [
@@ -24,7 +22,7 @@ router.get('/users/:userId', async (req, res, next) => {
       ],
     });
     if (!user) {
-      return next(ApiError.NotFound('User Not Found'))
+      return next(ApiError.NotFound('User Not Found'));
     }
     res.status(200).send(user);
   } catch (err) {

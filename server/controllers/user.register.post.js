@@ -25,17 +25,19 @@ router.post('/users/register', async (req, res, next) => {
   const newUser = await User.create({
     username: reqUserData.username,
     password: reqUserData.password,
-  })
+  });
 
   const token = jwt.sign(
     { id: newUser.id, username: newUser.username },
     process.env.SECRET_KEY,
     {
-      expiresIn: '24h'
+      expiresIn: '24h',
     }
   );
 
-  return res.status(201).send(token);
+  return res
+    .status(201)
+    .send({ token: token, message: 'Registered successfully' });
 });
 
 module.exports = router;
