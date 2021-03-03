@@ -5,6 +5,7 @@ export default function UserPanel(props) {
     props.logout();
   };
 
+  const [deleteModal, setDeleteModal] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [username, setUsername] = useState(props.username);
 
@@ -21,8 +22,32 @@ export default function UserPanel(props) {
     }
   };
 
+  const modalDeleteOn = () => {
+    setDeleteModal(true);
+  };
+
+  const closeModal = () => {
+    setDeleteModal(false);
+  }
+  const deleteUser = () => {
+    closeModal()
+    props.deleteUser()
+  }
+
   return (
     <div id='userPanel'>
+      {deleteModal && (
+        <div id='DeleteUser'>
+          <div>
+            <p>Are you sure you want delete user?</p>
+            <div>
+              <button onClick={deleteUser}>Yes</button>
+              <button onClick={closeModal}>No</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {!editMode && <span onDoubleClick={toggleEditMode}>{username}</span>}
       {editMode && (
         <input
@@ -37,7 +62,7 @@ export default function UserPanel(props) {
       <div className='buttons'>
         <button onClick={toggleEditMode}>Change name</button>
         <button onClick={signout}>Sign Out</button>
-        <button onClick={props.deleteUser}>Delete User</button>
+        <button onClick={modalDeleteOn}>Delete User</button>
       </div>
     </div>
   );

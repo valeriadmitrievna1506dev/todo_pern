@@ -52,9 +52,8 @@ export default function TasksPage(props) {
   };
 
   const callDeleteUser = async () => {
-    props.logout()
     await DeleteUser(props.user.id);
-    setData(await fetchData(filters.order, filters.done, props.user.id));
+    props.logout()
   };
 
   const callEditUsername = async (newUsername) => {

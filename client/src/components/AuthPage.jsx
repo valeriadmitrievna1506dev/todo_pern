@@ -24,6 +24,7 @@ export default function AuthPage(props) {
           setShowError(true);
         }
         if (response.token) {
+          document.querySelector('form').reset()
           setSuccessMessage(response.message);
           setShowOkay(true);
         }
