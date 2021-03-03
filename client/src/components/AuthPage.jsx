@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { loginUSer, registerUser } from '../http/auth.service';
-import { login, registrantion } from '../http/userApi';
 import './AuthPage.css';
 
 export default function AuthPage(props) {
