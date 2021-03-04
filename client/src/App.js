@@ -12,7 +12,8 @@ function App() {
 
   const logout = () => {
     logoutUser();
-    window.location.reload();
+    setIsAuth(false);
+    setUpdate('');
   };
 
   useEffect(() => {
@@ -128,7 +129,11 @@ function App() {
               </svg>
               ToDo List
             </h1>
-            <TasksPage logout={logout} user={currentUser} />
+            <TasksPage
+              isAuth={isAuth}
+              logout={logout}
+              user={currentUser}
+            />
           </Route>
           <Redirect to={`/users/${currentUser.id}/tasks`} />
         </Switch>

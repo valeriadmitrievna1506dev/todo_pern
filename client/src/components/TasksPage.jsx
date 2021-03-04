@@ -64,6 +64,9 @@ export default function TasksPage(props) {
     setData(await fetchData(filters.order, filters.done, props.user.id));
   }, [filters]);
 
+  console.log(props.isAuth);
+
+
   return (
     <div>
       <UserPanel
