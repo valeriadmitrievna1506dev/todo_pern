@@ -11,20 +11,18 @@ const errorHandler = require('./server/middleware/ErrorHandler')
 
 const app = express();
 
-const static = __dirname + '/views/'
+// const static = __dirname + '/views/'
 
 app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(static))
-app.set('views', path.join(__dirname, '/views/'));
-app.set('view engine', 'html');
+// app.use(express.static(static))
 
-app.get('/', function (req, res) {
-  res.sendFile(static + "index.html");
-});
+// app.get('/', function (req, res) {
+//   res.sendFile(static + "index.html");
+// });
 
 const start = async () => {
   try {
