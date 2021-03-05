@@ -26,6 +26,7 @@ export const AddTask = async (text, userId) => {
     const result = await axios.post(`${baseUrl}/users/${userId}/tasks`, {
       text,
     });
+    return result.data;
   } catch (err) {
     console.log(err.message);
   }
