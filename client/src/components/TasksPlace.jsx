@@ -9,24 +9,24 @@ export default function TasksPlace(props) {
       if (taskObject.done) {
         return (
           <Task
+            done={taskObject.done}
             key={taskObject.id}
             deleteTask={props.deleteTask}
             editText={props.editText}
             doneTask={props.doneTask}
             id={taskObject.id}
-            className='complete'
             text={taskObject.text}
           />
         );
       } else {
         return (
           <Task
+            done={taskObject.done}
             key={taskObject.id}
             deleteTask={props.deleteTask}
             editText={props.editText}
             doneTask={props.doneTask}
             id={taskObject.id}
-            className=''
             text={taskObject.text}
           />
         );

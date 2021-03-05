@@ -48,17 +48,22 @@ export default function TasksPage(props) {
     const editedTask = await editTaskText(id, text, props.user.id);
     const editedIndex = data.find((el) => {
       if (el.id === editedTask.id) {
-        return el
+        return el;
       }
-    })
-    data[data.indexOf(editedIndex)].text = editedTask.text
- };
+    });
+    data[data.indexOf(editedIndex)].text = editedTask.text;
+  };
 
   const callTaskDone = async (e) => {
     const id = e.currentTarget.parentElement.getAttribute('data-id');
     const value = e.currentTarget.parentElement.classList.value ? true : false;
-    await PutDoneTask(id, !value, props.user.id);
-    setData(await fetchData(filters.order, filters.done, props.user.id));
+    const doneTask = await PutDoneTask(id, !value, props.user.id);
+    const doneIndex = data.find((el) => {
+      if (el.id === doneTask.id) {
+        return el;
+      }
+    });
+    data[data.indexOf(doneIndex)].done = doneTask.done;
   };
 
   const callDeleteTask = async (e) => {

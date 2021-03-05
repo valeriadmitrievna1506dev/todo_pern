@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function Task(props) {
   const [editMode, setEditMode] = useState(false);
   const [tasktext, setTasktext] = useState(props.text);
+  const [taskDone, setTaskDone] = useState(props.done);
+
+  const taskClass = useRef()
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -20,8 +23,18 @@ export default function Task(props) {
     }
   };
 
+  const getTaskDone = (e) => {
+    setTaskDone(!taskDone)
+    props.doneTask(e);
+  };
+
+  useEffect(() => {
+    if (taskDone) taskClass.current.classList = 'complete'
+    if (!taskDone) taskClass.current.classList = ''
+  }, [taskDone])
+
   return (
-    <li data-id={props.id} className={props.className}>
+    <li data-id={props.id} ref={taskClass} className={''}>
       {editMode && (
         <input
           onKeyDown={(event) => {
@@ -38,7 +51,7 @@ export default function Task(props) {
           {tasktext}
         </span>
       )}
-      <button onClick={(event) => props.doneTask(event)} className='doneTask'>
+      <button onClick={(event) => getTaskDone(event)} className='doneTask'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           version='1.1'
