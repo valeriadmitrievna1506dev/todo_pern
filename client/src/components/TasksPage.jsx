@@ -46,6 +46,12 @@ export default function TasksPage(props) {
 
   const callEditTask = async (id, text) => {
     const editedTask = await editTaskText(id, text, props.user.id);
+    const editedIndex = data.find((el) => {
+      if (el.id === editedTask.id) {
+        return el
+      }
+    })
+    data[data.indexOf(editedIndex)].text = editedTask.text
  };
 
   const callTaskDone = async (e) => {
