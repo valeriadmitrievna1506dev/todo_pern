@@ -29,8 +29,19 @@ export default function TasksPage(props) {
   };
 
   const callAddTask = async (taskText) => {
-    await AddTask(taskText, props.user.id);
-    setData(await fetchData(filters.order, filters.done, props.user.id));
+    const newTask = await AddTask(taskText, props.user.id);
+    if (
+      (filters.order === 'normal' && filters.done === 'undone') ||
+      (filters.order === 'normal' && filters.done === 'all')
+    ) {
+      setData([newTask, ...data]);
+    }
+    if (
+      (filters.order === 'reverse' && filters.done === 'undone') ||
+      (filters.order === 'reverse' && filters.done === 'all')
+    ) {
+      setData([...data, newTask]);
+    }
   };
 
   const callEditTask = async (id, text) => {
