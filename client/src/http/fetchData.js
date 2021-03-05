@@ -40,6 +40,7 @@ export const PutDoneTask = async (taskId, done, userId) => {
         done: done,
       }
     );
+    return result.data
   } catch (err) {
     console.log(err.message);
   }
@@ -53,6 +54,7 @@ export const editTaskText = async (taskId, text, userId) => {
         text: text,
       }
     );
+    return result.data
   } catch (err) {
     console.log(err.message);
   }

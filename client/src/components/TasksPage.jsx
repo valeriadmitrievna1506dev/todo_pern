@@ -45,9 +45,8 @@ export default function TasksPage(props) {
   };
 
   const callEditTask = async (id, text) => {
-    await editTaskText(id, text, props.user.id);
-    setData(await fetchData(filters.order, filters.done, props.user.id));
-  };
+    const editedTask = await editTaskText(id, text, props.user.id);
+ };
 
   const callTaskDone = async (e) => {
     const id = e.currentTarget.parentElement.getAttribute('data-id');
@@ -74,8 +73,6 @@ export default function TasksPage(props) {
   useEffect(async () => {
     setData(await fetchData(filters.order, filters.done, props.user.id));
   }, [filters]);
-
-  console.log(props.isAuth);
 
   return (
     <div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function Task(props) {
   const [editMode, setEditMode] = useState(false);
+  const [tasktext, setTasktext] = useState(props.text);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -11,7 +12,12 @@ export default function Task(props) {
   };
   const deactivateEditMode = async (e) => {
     setEditMode(false);
-    await props.editText(props.id, e.target.value);
+    if (e.target.value.replace(/[' ']{1,}/, '') !== '') {
+      if (e.target.value !== tasktext) {
+        await props.editText(props.id, e.target.value);
+        setTasktext(e.target.value);
+      }
+    }
   };
 
   return (
@@ -24,12 +30,12 @@ export default function Task(props) {
           autoFocus={true}
           onBlur={(event) => deactivateEditMode(event)}
           type='text'
-          defaultValue={props.text}
+          defaultValue={tasktext}
         />
       )}
       {!editMode && (
         <span onDoubleClick={activateEditMode} className='taskText'>
-          {props.text}
+          {tasktext}
         </span>
       )}
       <button onClick={(event) => props.doneTask(event)} className='doneTask'>
