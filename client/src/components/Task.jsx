@@ -27,7 +27,6 @@ export default function Task(props) {
     setTaskDone(!taskDone)
     props.doneTask(e);
   };
-
   useEffect(() => {
     if (taskDone) taskClass.current.classList = 'complete'
     if (!taskDone) taskClass.current.classList = ''

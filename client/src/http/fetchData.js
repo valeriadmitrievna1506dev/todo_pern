@@ -65,6 +65,7 @@ export const DeleteTask = async (taskId, userId) => {
     const result = await axios.delete(
       `${baseUrl}/users/${userId}/tasks/${taskId}`
     );
+    return result.status
   } catch (error) {
     console.log(error.message);
   }

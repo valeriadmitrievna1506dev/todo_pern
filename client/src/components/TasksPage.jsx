@@ -68,8 +68,16 @@ export default function TasksPage(props) {
 
   const callDeleteTask = async (e) => {
     const id = e.currentTarget.parentElement.getAttribute('data-id');
-    await DeleteTask(id, props.user.id);
-    setData(await fetchData(filters.order, filters.done, props.user.id));
+    const status = await DeleteTask(id, props.user.id);
+    if (status === 204) {
+      const deletingTask = data.find((el) => {
+        if (el.id == id) {
+          return el;
+        }
+      });
+      data.splice(data.indexOf(deletingTask), 1);
+      setData([...data])
+    }
   };
 
   const callDeleteUser = async () => {
