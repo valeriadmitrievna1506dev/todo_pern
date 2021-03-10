@@ -13,6 +13,22 @@ body::-webkit-scrollbar {
   user-select: none;
 }
 
+.Loading {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    120deg,
+    rgb(104, 212, 212),
+    rgb(60, 148, 189)
+  );
+}
+
 #userPanel {
   position: fixed;
   top: 0;
@@ -170,7 +186,7 @@ h1 svg {
   font-size: 28px;
 }
 
-#tasksContent li {
+#tasksContent > li {
   -webkit-transition: 0.4s;
   transition: 0.4s;
   display: -ms-grid;
@@ -187,7 +203,7 @@ h1 svg {
   margin-bottom: 16px;
 }
 
-#tasksContent input {
+#tasksContent > li > input {
   background-color: rgba(0, 0, 0, 0);
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -197,44 +213,44 @@ h1 svg {
   padding: 0 8px;
 }
 
-#tasksContent li span {
+#tasksContent > li > span {
   text-align: right;
   margin-right: 16px;
 }
 
-#tasksContent li button {
+#tasksContent > li > button {
   width: 50px;
   height: 50px;
   border: none;
   background-color: transparent;
 }
 
-#tasksContent li button svg {
+#tasksContent > li > button > svg {
   width: 100%;
   height: 100%;
 }
 
-#tasksContent li button svg path {
+#tasksContent > li > button > svg path {
   height: 38px;
 }
 
-#tasksContent li button.deleteTask path {
+#tasksContent > li > button.deleteTask path {
   fill: #ac0000;
 }
 
-#tasksContent li button.editTask path {
+#tasksContent > li > button.editTask path {
   fill: #ffbb3c;
 }
 
-#tasksContent li.complete span {
+#tasksContent > li.complete > span {
   text-decoration: line-through;
 }
 
-#tasksContent li.complete .doneTask svg {
+#tasksContent > li.complete > .doneTask svg {
   opacity: 0.5;
 }
 
-#tasksContent li:last-of-type {
+#tasksContent > li:last-of-type {
   margin: 0;
 }
 
