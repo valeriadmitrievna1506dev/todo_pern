@@ -23,6 +23,28 @@
     padding: 16px;
     display: flex;
     flex-direction: column;
+    .manage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: fit-content;
+      margin: 0 auto;
+      margin-bottom: 16px;
+      button {
+        border: none;
+        font-size: 24px;
+        line-height: 1;
+        color: #fff;
+        padding: 0.5vw 1vw;
+        &:first-of-type {
+          border-radius: 0.7vw 0 0 0.7vw;
+          background-color: rgb(43, 141, 92);
+        }
+        &:last-of-type {
+          border-radius: 0 0.7vw 0.7vw 0;
+          background-color: rgb(43, 105, 141);
+        }
+      }
+    }
     .title {
       display: inline-block;
       font-size: 32px;
@@ -36,7 +58,7 @@
       justify-content: space-between;
       > input {
         display: inline-block;
-        width: 80%;
+        width: 100%;
         padding-bottom: 16px;
         border: none;
         font-size: 28px;
@@ -44,45 +66,29 @@
         background-color: rgb(226, 226, 226);
         padding: 0;
       }
-      button {
-        border: none;
-        font-size: 20px;
-        line-height: 1;
-        color: rgb(255, 255, 255);
-        background-color: rgb(185, 135, 42);
-        padding: 4px 18px;
-        border-radius: 2vw;
-      }
     }
     > div {
       display: flex;
       justify-content: space-between;
       .text {
-        font-size: 24px;
+        font-size: 20px;
         line-height: 1;
         margin-bottom: 16px;
+        white-space: pre;
       }
       textarea {
         background-color: rgb(233, 232, 232);
-        width: 80%;
+        width: 100%;
+        height: fit-content;
         margin-bottom: 16px;
         resize: none;
-        height: 100%;
         font-size: 20px;
         line-height: 1;
         padding: 8px;
         border: none;
-      }
-      button {
-        border: none;
-        font-weight: bold;
-        height: fit-content;
-        font-size: 20px;
-        line-height: 1;
-        color: rgb(255, 255, 255);
-        background-color: rgb(185, 135, 42);
-        padding: 4px 18px;
-        border-radius: 2vw;
+        overflow: hidden;
+        transition: 0.4s;
+        padding: 0;
       }
     }
     > button {

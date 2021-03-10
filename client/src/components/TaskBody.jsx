@@ -8,6 +8,9 @@ export default function TaskBody(props) {
   const [editText, setEditText] = useState(false);
   const [taskBodyText, setTaskBodyText] = useState(props.taskBody);
 
+  const [titleInput, setTitleInput] = useState(props.taskTitle);
+  const [textInput, setTextInput] = useState(props.taskBody);
+
   const taskBody = useRef();
 
   const closeBody = () => {
@@ -16,20 +19,20 @@ export default function TaskBody(props) {
   };
 
   // edit title
-  const toggleEditTitle = (e) => {
+  const toggleEditTitle = () => {
     if (!editTitle) {
       setEditTitle(true);
     } else {
-      deactivateEditTitle(e.target.previousSibling);
+      deactivateEditTitle();
     }
   };
-  const deactivateEditTitle = async (e) => {
+  const deactivateEditTitle = async () => {
     setEditTitle(false);
-    if (e.value.replace(/[' ']{1,}/, '') !== '') {
-      if (e.value !== taskBodyTitle) {
-        await props.editTitle(props.id, e.value);
-        setTaskBodyTitle(e.value);
-        props.editStateTitle(e.value);
+    if (titleInput.replace(/[' ']{1,}/, '') !== '') {
+      if (titleInput !== taskBodyTitle) {
+        await props.editTitle(props.id, titleInput);
+        setTaskBodyTitle(titleInput);
+        props.editStateTitle(titleInput);
       }
     }
   };
@@ -39,16 +42,16 @@ export default function TaskBody(props) {
     if (!editText) {
       setEditText(true);
     } else {
-      deactivateEditText(e.target.previousSibling);
+      deactivateEditText();
     }
   };
   const deactivateEditText = async (e) => {
     setEditText(false);
-    if (e.value.replace(/[' ']{1,}/, '') !== '') {
-      if (e.value !== taskBodyText) {
-        await props.editTaskBody(props.id, e.value);
-        setTaskBodyText(e.value);
-        props.editStateText(e.value);
+    if (textInput.replace(/[' ']{1,}/, '') !== '') {
+      if (textInput !== taskBodyText) {
+        await props.editTaskBody(props.id, textInput);
+        setTaskBodyText(textInput);
+        props.editStateText(textInput);
       }
     }
   };
@@ -56,9 +59,14 @@ export default function TaskBody(props) {
   return (
     <div ref={taskBody} className='TaskBody'>
       <div className='body'>
+        <p className='manage'>
+          <button onClick={toggleEditTitle}>edit title</button>
+          <button onClick={toggleEditText}>edit text</button>
+        </p>
         <p className='title'>
           {editTitle && (
             <input
+              onChange={(e) => setTitleInput(e.target.value)}
               autoFocus={true}
               type='text'
               defaultValue={taskBodyTitle}
@@ -68,11 +76,20 @@ export default function TaskBody(props) {
             />
           )}
           {!editTitle && taskBodyTitle}
-          <button onClick={(e) => toggleEditTitle(e)}>edit title</button>
         </p>
         <div>
           {editText && (
-            <textarea autoFocus={true} defaultValue={taskBodyText} />
+            <textarea
+              onChange={(e) => setTextInput(e.target.value)}
+              autoFocus={true}
+              defaultValue={taskBodyText}
+              onKeyUp={(e) => {
+                e.target.style.height = e.target.scrollHeight + 'px';
+              }}
+              onFocus={(e) => {
+                e.target.style.height = e.target.scrollHeight + 'px';
+              }}
+            />
           )}
           {!editText && (
             <p className='text'>
@@ -80,7 +97,6 @@ export default function TaskBody(props) {
               {!taskBodyText && 'No Task Body'}
             </p>
           )}
-          <button onClick={toggleEditText}>edit text</button>
         </div>
         <button onClick={closeBody}>Close</button>
       </div>

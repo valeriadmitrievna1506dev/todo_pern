@@ -40,6 +40,36 @@
           flex-direction: column;
 }
 
+.TaskBody .body .manage {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 16px;
+}
+
+.TaskBody .body .manage button {
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: #fff;
+  padding: 0.5vw 1vw;
+}
+
+.TaskBody .body .manage button:first-of-type {
+  border-radius: 0.7vw 0 0 0.7vw;
+  background-color: #2b8d5c;
+}
+
+.TaskBody .body .manage button:last-of-type {
+  border-radius: 0 0.7vw 0.7vw 0;
+  background-color: #2b698d;
+}
+
 .TaskBody .body .title {
   display: inline-block;
   font-size: 32px;
@@ -61,23 +91,13 @@
 
 .TaskBody .body .title > input {
   display: inline-block;
-  width: 80%;
+  width: 100%;
   padding-bottom: 16px;
   border: none;
   font-size: 28px;
   line-height: 1;
   background-color: #e2e2e2;
   padding: 0;
-}
-
-.TaskBody .body .title button {
-  border: none;
-  font-size: 20px;
-  line-height: 1;
-  color: white;
-  background-color: #b9872a;
-  padding: 4px 18px;
-  border-radius: 2vw;
 }
 
 .TaskBody .body > div {
@@ -90,35 +110,28 @@
 }
 
 .TaskBody .body > div .text {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1;
   margin-bottom: 16px;
+  white-space: pre;
 }
 
 .TaskBody .body > div textarea {
   background-color: #e9e8e8;
-  width: 80%;
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   margin-bottom: 16px;
   resize: none;
-  height: 100%;
   font-size: 20px;
   line-height: 1;
   padding: 8px;
   border: none;
-}
-
-.TaskBody .body > div button {
-  border: none;
-  font-weight: bold;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  font-size: 20px;
-  line-height: 1;
-  color: white;
-  background-color: #b9872a;
-  padding: 4px 18px;
-  border-radius: 2vw;
+  overflow: hidden;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  padding: 0;
 }
 
 .TaskBody .body > button {
