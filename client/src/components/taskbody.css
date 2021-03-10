@@ -1,0 +1,131 @@
+.TaskBody {
+  z-index: 1000;
+  position: fixed;
+  top: 67.46px;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: calc(100vh - 65px - 67.46px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.TaskBody.closing {
+  opacity: 0;
+}
+
+.TaskBody .body {
+  background-color: #fff;
+  color: black;
+  border-radius: 2vw;
+  min-width: 310px;
+  width: 60%;
+  min-height: 310px;
+  padding: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.TaskBody .body .title {
+  display: inline-block;
+  font-size: 32px;
+  line-height: 1;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  margin-bottom: 16px;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.TaskBody .body .title > input {
+  display: inline-block;
+  width: 80%;
+  padding-bottom: 16px;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  background-color: #e2e2e2;
+  padding: 0;
+}
+
+.TaskBody .body .title button {
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  color: white;
+  background-color: #b9872a;
+  padding: 4px 18px;
+  border-radius: 2vw;
+}
+
+.TaskBody .body > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.TaskBody .body > div .text {
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.TaskBody .body > div textarea {
+  background-color: #e9e8e8;
+  width: 80%;
+  margin-bottom: 16px;
+  resize: none;
+  height: 100%;
+  font-size: 20px;
+  line-height: 1;
+  padding: 8px;
+  border: none;
+}
+
+.TaskBody .body > div button {
+  border: none;
+  font-weight: bold;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  font-size: 20px;
+  line-height: 1;
+  color: white;
+  background-color: #b9872a;
+  padding: 4px 18px;
+  border-radius: 2vw;
+}
+
+.TaskBody .body > button {
+  margin-top: auto;
+  background-color: #b64d4d;
+  border: none;
+  color: #fff;
+  border-radius: 1vw;
+}
+/*# sourceMappingURL=taskbody.css.map */

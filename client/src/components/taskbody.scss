@@ -1,0 +1,96 @@
+.TaskBody {
+  z-index: 1000;
+  position: fixed;
+  top: 67.46px;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: calc(100vh - 65px - 67.46px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  &.closing {
+    opacity: 0;
+  }
+  .body {
+    background-color: #fff;
+    color: black;
+    border-radius: 2vw;
+    min-width: 310px;
+    width: 60%;
+    min-height: 310px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    .title {
+      display: inline-block;
+      font-size: 32px;
+      line-height: 1;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      margin-bottom: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      > input {
+        display: inline-block;
+        width: 80%;
+        padding-bottom: 16px;
+        border: none;
+        font-size: 28px;
+        line-height: 1;
+        background-color: rgb(226, 226, 226);
+        padding: 0;
+      }
+      button {
+        border: none;
+        font-size: 20px;
+        line-height: 1;
+        color: rgb(255, 255, 255);
+        background-color: rgb(185, 135, 42);
+        padding: 4px 18px;
+        border-radius: 2vw;
+      }
+    }
+    > div {
+      display: flex;
+      justify-content: space-between;
+      .text {
+        font-size: 24px;
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+      textarea {
+        background-color: rgb(233, 232, 232);
+        width: 80%;
+        margin-bottom: 16px;
+        resize: none;
+        height: 100%;
+        font-size: 20px;
+        line-height: 1;
+        padding: 8px;
+        border: none;
+      }
+      button {
+        border: none;
+        font-weight: bold;
+        height: fit-content;
+        font-size: 20px;
+        line-height: 1;
+        color: rgb(255, 255, 255);
+        background-color: rgb(185, 135, 42);
+        padding: 4px 18px;
+        border-radius: 2vw;
+      }
+    }
+    > button {
+      margin-top: auto;
+      background-color: rgb(182, 77, 77);
+      border: none;
+      color: #fff;
+      border-radius: 1vw;
+    }
+  }
+}

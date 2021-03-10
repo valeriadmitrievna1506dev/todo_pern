@@ -10,6 +10,7 @@ import {
   fetchData,
   PutDoneTask,
   editUsername,
+  editTaskBody,
 } from '../http/fetchData';
 import React from 'react';
 import UserPanel from './UserPanel';
@@ -54,6 +55,16 @@ export default function TasksPage(props) {
     data[data.indexOf(editedIndex)].text = editedTask.text;
   };
 
+  const callEditTaskBody = async (id, text) => {
+    const editedTask = await editTaskBody(id, text, props.user.id)
+    const editedIndex = data.find((el) => {
+      if (el.id === editedTask.id) {
+        return el;
+      }
+    });
+    data[data.indexOf(editedIndex)].bodyText = editedTask.bodyText;
+  };
+
   const callTaskDone = async (e) => {
     const id = e.currentTarget.parentElement.getAttribute('data-id');
     const value = e.currentTarget.parentElement.classList.value ? true : false;
@@ -76,7 +87,7 @@ export default function TasksPage(props) {
         }
       });
       data.splice(data.indexOf(deletingTask), 1);
-      setData([...data])
+      setData([...data]);
     }
   };
 
@@ -105,11 +116,12 @@ export default function TasksPage(props) {
       <AddTaskForm addTask={callAddTask} />
       <TasksPlace
         data={data}
+        editTaskBody={callEditTaskBody}
         deleteTask={callDeleteTask}
         doneTask={callTaskDone}
         editText={callEditTask}
       />
       <BottomPanel updateFilters={updateFilters} />
     </div>
-  );
+  )
 }

@@ -13,9 +13,11 @@ export default function TasksPlace(props) {
             key={taskObject.id}
             deleteTask={props.deleteTask}
             editText={props.editText}
+            editTaskBody={props.editTaskBody}
             doneTask={props.doneTask}
             id={taskObject.id}
             text={taskObject.text}
+            taskBody={taskObject.bodyText}
           />
         );
       } else {
@@ -25,9 +27,11 @@ export default function TasksPlace(props) {
             key={taskObject.id}
             deleteTask={props.deleteTask}
             editText={props.editText}
+            editTaskBody={props.editTaskBody}
             doneTask={props.doneTask}
             id={taskObject.id}
             text={taskObject.text}
+            taskBody={taskObject.bodyText}
           />
         );
       }

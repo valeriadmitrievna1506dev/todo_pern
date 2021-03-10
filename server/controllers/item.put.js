@@ -6,7 +6,7 @@ router.put('/users/:id/tasks/:idtask', async (req, res) => {
   try {
     const task = req.body;
 
-    if (!task.text && task.done === undefined) {
+    if (!task.text && task.done === undefined && !task.bodyText) {
       return res.status(400).send({
         message: 'Invalid Request Body',
       });

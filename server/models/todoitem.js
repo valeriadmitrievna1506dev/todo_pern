@@ -17,6 +17,11 @@ const TodoItem = sequelize.define('TodoItem', {
     allowNull: false,
     defaultValue: false,
   },
+  bodyText: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    defaultValue: '',
+  }
 });
 
 module.exports = TodoItem;

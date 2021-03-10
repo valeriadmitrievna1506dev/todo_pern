@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
+import TaskBody from './TaskBody';
 
 export default function Task(props) {
   const [editMode, setEditMode] = useState(false);
   const [tasktext, setTasktext] = useState(props.text);
   const [taskDone, setTaskDone] = useState(props.done);
+  const [taskBodyShow, setTaskBodyShow] = useState(false);
+  const [taskBodyText, setTaskBodyText] = useState(props.taskBody)
 
-  const taskClass = useRef()
+  const taskClass = useRef();
 
-  const toggleEditMode = () => {
-    setEditMode(!editMode);
+  const showTaskBody = () => {
+    setTaskBodyShow(true);
   };
+
   const activateEditMode = () => {
     setEditMode(true);
   };
@@ -24,16 +28,29 @@ export default function Task(props) {
   };
 
   const getTaskDone = (e) => {
-    setTaskDone(!taskDone)
+    setTaskDone(!taskDone);
     props.doneTask(e);
   };
   useEffect(() => {
-    if (taskDone) taskClass.current.classList = 'complete'
-    if (!taskDone) taskClass.current.classList = ''
-  }, [taskDone])
+    if (taskDone) taskClass.current.classList = 'complete';
+    if (!taskDone) taskClass.current.classList = '';
+  }, [taskDone]);
 
   return (
     <li data-id={props.id} ref={taskClass} className={''}>
+      {taskBodyShow && (
+        <TaskBody
+          id={props.id}
+          editTaskBody={props.editTaskBody}
+          editTitle={props.editText}
+          editStateTitle={setTasktext}
+          closeBody={setTaskBodyShow}
+          taskTitle={tasktext}
+          taskBody={taskBodyText}
+          editStateText={setTaskBodyText}
+        />
+      )}
+
       {editMode && (
         <input
           onKeyDown={(event) => {
@@ -71,7 +88,7 @@ export default function Task(props) {
           </g>
         </svg>
       </button>
-      <button onClick={toggleEditMode} className='editTask'>
+      <button onClick={showTaskBody} className='editTask'>
         <svg
           version='1.1'
           id='Layer_1'

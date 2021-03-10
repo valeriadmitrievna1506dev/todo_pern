@@ -60,6 +60,20 @@ export const editTaskText = async (taskId, text, userId) => {
   }
 };
 
+export const editTaskBody = async (taskId, bodyText, userId) => {
+  try {
+    const result = await axios.put(
+      `${baseUrl}/users/${userId}/tasks/${taskId}`,
+      {
+        bodyText: bodyText,
+      }
+    );
+    return result.data
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
 export const DeleteTask = async (taskId, userId) => {
   try {
     const result = await axios.delete(
