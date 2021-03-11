@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './taskbody.css';
+import { Spring } from 'react-spring/renderprops';
 
 export default function TaskBody(props) {
   const [editTitle, setEditTitle] = useState(false);
@@ -12,6 +13,7 @@ export default function TaskBody(props) {
   const [textInput, setTextInput] = useState(props.taskBody);
 
   const taskBody = useRef();
+  const bodyTextArea = useRef();
 
   const closeBody = () => {
     taskBody.current.classList.add('closing');
@@ -38,14 +40,18 @@ export default function TaskBody(props) {
   };
 
   // edit body
-  const toggleEditText = (e) => {
+  const toggleEditText = async (e) => {
     if (!editText) {
-      setEditText(true);
+      setEditText(await true);
+      bodyTextArea.current.setSelectionRange(
+        bodyTextArea.current.value.length,
+        bodyTextArea.current.value.length
+      );
     } else {
       deactivateEditText();
     }
   };
-  const deactivateEditText = async (e) => {
+  const deactivateEditText = async () => {
     setEditText(false);
     if (textInput.replace(/[' ']{1,}/, '') !== '') {
       if (textInput !== taskBodyText) {
@@ -57,49 +63,58 @@ export default function TaskBody(props) {
   };
 
   return (
-    <div ref={taskBody} className='TaskBody'>
-      <div className='body'>
-        <p className='manage'>
-          <button onClick={toggleEditTitle}>edit title</button>
-          <button onClick={toggleEditText}>edit text</button>
-        </p>
-        <p className='title'>
-          {editTitle && (
-            <input
-              onChange={(e) => setTitleInput(e.target.value)}
-              autoFocus={true}
-              type='text'
-              defaultValue={taskBodyTitle}
-              onKeyDown={(event) => {
-                if (event.code === 'Enter') deactivateEditTitle(event.target);
-              }}
-            />
-          )}
-          {!editTitle && taskBodyTitle}
-        </p>
-        <div>
-          {editText && (
-            <textarea
-              onChange={(e) => setTextInput(e.target.value)}
-              autoFocus={true}
-              defaultValue={taskBodyText}
-              onKeyUp={(e) => {
-                e.target.style.height = e.target.scrollHeight + 'px';
-              }}
-              onFocus={(e) => {
-                e.target.style.height = e.target.scrollHeight + 'px';
-              }}
-            />
-          )}
-          {!editText && (
-            <p className='text'>
-              {taskBodyText && taskBodyText}
-              {!taskBodyText && 'No Task Body'}
-            </p>
-          )}
+    <Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+      {(props) => (
+        <div style={{ position: 'absolute', ...props }}>
+          <div ref={taskBody} className='TaskBody'>
+            <div className='body'>
+              <p className='manage'>
+                <button onClick={toggleEditTitle}>edit title</button>
+                <button onClick={toggleEditText}>edit text</button>
+              </p>
+              <p className='title'>
+                {editTitle && (
+                  <input
+                    onChange={(e) => setTitleInput(e.target.value)}
+                    autoFocus={true}
+                    type='text'
+                    onBlur={deactivateEditTitle}
+                    defaultValue={taskBodyTitle}
+                    onKeyDown={(event) => {
+                      if (event.code === 'Enter') deactivateEditTitle();
+                    }}
+                  />
+                )}
+                {!editTitle && taskBodyTitle}
+              </p>
+              <div>
+                {editText && (
+                  <textarea
+                    onBlur={deactivateEditText}
+                    ref={bodyTextArea}
+                    onChange={(e) => setTextInput(e.target.value)}
+                    autoFocus={true}
+                    defaultValue={taskBodyText}
+                    onKeyUp={(e) => {
+                      e.target.style.height = e.target.scrollHeight + 'px';
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.height = e.target.scrollHeight + 'px';
+                    }}
+                  />
+                )}
+                {!editText && (
+                  <p className='text'>
+                    {taskBodyText && taskBodyText}
+                    {!taskBodyText && 'No Task Body'}
+                  </p>
+                )}
+              </div>
+              <button onClick={closeBody}>Close</button>
+            </div>
+          </div>
         </div>
-        <button onClick={closeBody}>Close</button>
-      </div>
-    </div>
+      )}
+    </Spring>
   );
 }

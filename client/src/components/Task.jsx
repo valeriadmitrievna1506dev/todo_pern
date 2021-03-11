@@ -6,7 +6,7 @@ export default function Task(props) {
   const [tasktext, setTasktext] = useState(props.text);
   const [taskDone, setTaskDone] = useState(props.done);
   const [taskBodyShow, setTaskBodyShow] = useState(false);
-  const [taskBodyText, setTaskBodyText] = useState(props.taskBody)
+  const [taskBodyText, setTaskBodyText] = useState(props.taskBody);
 
   const taskClass = useRef();
 
@@ -32,12 +32,12 @@ export default function Task(props) {
     props.doneTask(e);
   };
   useEffect(() => {
-    if (taskDone) taskClass.current.classList = 'complete';
-    if (!taskDone) taskClass.current.classList = '';
+    if (taskDone) taskClass.current.classList = 'task complete';
+    if (!taskDone) taskClass.current.classList = 'task';
   }, [taskDone]);
 
   return (
-    <li data-id={props.id} ref={taskClass} className={''}>
+    <li data-id={props.id} ref={taskClass} className={'task'}>
       {taskBodyShow && (
         <TaskBody
           id={props.id}
@@ -133,6 +133,7 @@ export default function Task(props) {
           </g>
         </svg>
       </button>
+      {props.dragHandle}
     </li>
   );
 }

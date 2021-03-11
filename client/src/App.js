@@ -29,7 +29,7 @@ function App() {
 
   if (loading) {
     return (
-      <div class="Loading">
+      <div className="Loading">
         <img src={loadingGif}/>
       </div>
     )
@@ -37,9 +37,6 @@ function App() {
     if (isAuth) {
       return (
         <BrowserRouter>
-           {/* <Switch> */}
-            {/* <Route path={`/users/${currentUser.id}/tasks`}> */}
-            {/* <Route path={`/`}>  */}
               <h1>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -145,17 +142,12 @@ function App() {
                 logout={logout}
                 user={currentUser}
               />
-             {/* </Route> */}
-             {/* <Redirect to={`/users/${currentUser.id}/tasks`} /> */}
-            {/* </Switch> */}
          </BrowserRouter>
       );
     }
   
     return (
       <BrowserRouter>
-        {/* <Switch>
-          <Route path='/' exact> */}
             <h1>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -257,9 +249,6 @@ function App() {
               ToDo List
             </h1>
             <AuthPage updateUser={setUpdate} />
-          {/* </Route>
-          <Redirect to='/' />
-        </Switch> */}
       </BrowserRouter>
     );
   }

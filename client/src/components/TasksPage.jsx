@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AddTaskForm from './AddTaskForm';
-import TasksPlace from './TasksPlace';
+import Task from './Task';
 import BottomPanel from './BottomPanel';
 import {
   AddTask,
@@ -14,9 +14,15 @@ import {
 } from '../http/fetchData';
 import React from 'react';
 import UserPanel from './UserPanel';
+import {
+  sortableContainer,
+  sortableElement,
+  sortableHandle,
+  arrayMove,
+} from 'react-sortable-hoc';
 
 export default function TasksPage(props) {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [filters, setFilters] = useState({
     order: 'normal',
     done: 'all',
@@ -56,7 +62,7 @@ export default function TasksPage(props) {
   };
 
   const callEditTaskBody = async (id, text) => {
-    const editedTask = await editTaskBody(id, text, props.user.id)
+    const editedTask = await editTaskBody(id, text, props.user.id);
     const editedIndex = data.find((el) => {
       if (el.id === editedTask.id) {
         return el;
@@ -104,6 +110,48 @@ export default function TasksPage(props) {
     setData(await fetchData(filters.order, filters.done, props.user.id));
   }, [filters]);
 
+  const DragHandle = sortableHandle(() => <span>::</span>);
+  const SortableItem = sortableElement(({ taskObject }) => (
+    <Task
+      key={taskObject.id}
+      id={taskObject.id}
+      done={taskObject.done}
+      text={taskObject.text}
+      taskBody={taskObject.bodyText}
+      deleteTask={callDeleteTask}
+      editText={callEditTask}
+      editTaskBody={callEditTaskBody}
+      doneTask={callTaskDone}
+      dragHandle={<DragHandle />}
+    />
+  ));
+  const SortableContainer = sortableContainer(({ children }) => {
+    return <ul id='tasksContent'>{children}</ul>;
+  });
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setData(arrayMove(data, oldIndex, newIndex));
+  };
+
+  const displayTasks = () => {
+    if (!data) return 'No tasks';
+    if (data.length === 0) return 'No tasks';
+    return data.map((taskObject) => {
+      return (
+        <Task
+          key={taskObject.id}
+          id={taskObject.id}
+          done={taskObject.done}
+          text={taskObject.text}
+          taskBody={taskObject.bodyText}
+          deleteTask={callDeleteTask}
+          editText={callEditTask}
+          editTaskBody={callEditTaskBody}
+          doneTask={callTaskDone}
+          dragHandle={<DragHandle />}
+        />
+      );
+    });
+  };
   return (
     <div>
       <UserPanel
@@ -114,14 +162,14 @@ export default function TasksPage(props) {
         logout={props.logout}
       />
       <AddTaskForm addTask={callAddTask} />
-      <TasksPlace
-        data={data}
-        editTaskBody={callEditTaskBody}
-        deleteTask={callDeleteTask}
-        doneTask={callTaskDone}
-        editText={callEditTask}
-      />
+      <SortableContainer onSortEnd={onSortEnd} useDragHandle>
+        {data.map((value, index) => {
+          return (
+            <SortableItem key={`item-${value.id}`} index={index} taskObject={value} />
+          );
+        })}
+      </SortableContainer>
       <BottomPanel updateFilters={updateFilters} />
     </div>
-  )
+  );
 }
