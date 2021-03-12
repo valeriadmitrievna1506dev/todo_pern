@@ -1,8 +1,9 @@
 const User = require('./../models').User;
 const express = require('express');
 const router = express.Router();
+const auth = require('./../middleware/authMiddleware')
 
-router.put('/users/:userId', async (req, res) => {
+router.put('/users/:userId', auth, async (req, res) => {
   try {
     let newUserName = req.body.username
     if (!newUserName) throw new Error(400);

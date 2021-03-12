@@ -1,8 +1,9 @@
 const User = require('./../models').User;
 const express = require('express');
 const router = express.Router();
+const auth = require('./../middleware/authMiddleware')
 
-router.delete('/users/:userId', async (req, res) => {
+router.delete('/users/:userId', auth, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.userId);
 

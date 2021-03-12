@@ -1,8 +1,9 @@
 const TodoItem = require('./../models').TodoItem;
 const express = require('express');
 const router = express.Router();
+const auth = require('./../middleware/authMiddleware')
 
-router.post('/users/:userId/tasks', async (req, res) => {
+router.post('/users/:userId/tasks', auth, async (req, res) => {
   try {
     let newTask = {
       text: req.body.text,

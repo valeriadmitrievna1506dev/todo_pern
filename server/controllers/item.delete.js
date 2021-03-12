@@ -1,8 +1,9 @@
 const TodoItem = require('./../models').TodoItem;
 const express = require('express');
 const router = express.Router();
+const auth = require('./../middleware/authMiddleware')
 
-router.delete('/users/:userId/tasks/:taskId', async (req, res) => {
+router.delete('/users/:userId/tasks/:taskId', auth, async (req, res) => {
   try {
     const todoItem = await TodoItem.findByPk(req.params.taskId);
 

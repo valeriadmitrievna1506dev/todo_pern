@@ -32,4 +32,4 @@ const start = async () => {
     console.log(e.message);
   }
 };
-start();
+start()

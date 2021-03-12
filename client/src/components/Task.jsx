@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TaskBody from './TaskBody';
+import './Task.css';
 
 export default function Task(props) {
   const [editMode, setEditMode] = useState(false);
@@ -67,6 +68,7 @@ export default function Task(props) {
           {tasktext}
         </span>
       )}
+
       <button onClick={(event) => getTaskDone(event)} className='doneTask'>
         <svg
           xmlns='http://www.w3.org/2000/svg'

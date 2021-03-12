@@ -3,8 +3,9 @@ const TodoItem = require('./../models').TodoItem;
 const express = require('express');
 const router = express.Router();
 const ApiError = require('./../error/ApiError');
+const auth = require('./../middleware/authMiddleware')
 
-router.get(/\/users\/\d{1,}/, async (req, res, next) => {
+router.get(/\/users\/\d{1,}/, auth, async (req, res, next) => {
   try {
     const userId = req.path.replace('/users/', '');
     if (typeof parseInt(userId) !== 'number') {

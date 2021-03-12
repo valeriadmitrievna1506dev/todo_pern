@@ -1,17 +1,21 @@
 const jwt = require('jsonwebtoken');
+const util = require('util');
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   try {
+    const verifyPromise = util.promisify(jwt.verify);
+    if (req.method === 'OPTIONS') next();
     const token = req.headers.authorization.split(' ')[1];
-    if (!token)
+    if (!token) {
       return res.status(401).send({
         message: 'Not Auth',
       });
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    }
+    const decoded = await verifyPromise(token, process.env.SECRET_KEY);
     req.decoded = decoded;
     next();
   } catch (error) {
-    res.status(401).send({
+    return res.status(401).send({
       message: 'Not Auth',
     });
   }

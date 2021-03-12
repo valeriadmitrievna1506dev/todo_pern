@@ -1,8 +1,9 @@
 const TodoItem = require('./../models').TodoItem;
 const express = require('express');
 const router = express.Router();
+const auth = require('./../middleware/authMiddleware')
 
-router.get('/users/:userId/tasks', async (req, res) => {
+router.get('/users/:userId/tasks', auth, async (req, res) => {
   try {
     const filter = {
       order:
@@ -23,7 +24,7 @@ router.get('/users/:userId/tasks', async (req, res) => {
     const result = await TodoItem.findAll(filter);
     res.status(200).send(result);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send({message: error.message});
   }
 });
 
